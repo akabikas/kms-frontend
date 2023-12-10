@@ -42,6 +42,16 @@ module.exports = {
       fontFamily: {
         primary: ["Manrope", "sans-serif"],
       },
+      gridTemplateColumns: {
+        24: "repeat(24, minmax(0, 1fr))",
+      },
+      gridColumn: () => {
+        const gridColumnClasses = {};
+        for (let span = 1; span <= 24; span++) {
+          gridColumnClasses[`span-${span}`] = `span ${span} / span ${span}`;
+        }
+        return gridColumnClasses;
+      },
     },
   },
   plugins: [],

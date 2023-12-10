@@ -23,8 +23,8 @@ function SideMenuBar({ links }) {
   };
 
   return (
-    <header className="col-span-3 min-h-screen overflow-hidden w-full">
-      <div className="sidebar bg-secondary fixed left-0 top-0 bottom-0 min-h-screen  px-10 py-6 flex flex-col shadow-xl">
+    <header className="col-span-5 min-h-screen sticky left-0 top-0 bottom-0 shadow-xl  px-10 py-6">
+      <div className="sidebar bg-secondary h-[calc(100vh-48px)]  flex flex-col ">
         <div className="top">
           <div className="brand mb-32">
             <img src={Logo} className="w-24" />
