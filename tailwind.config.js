@@ -6,8 +6,10 @@ module.exports = {
       colors: {
         primary: "#191919",
         secondary: "#ffffff",
-        tertiary: "#F15025",
+        tertiary: "#0D21A1",
         quaternary: "#E6E8E6",
+        error: "#A52422",
+        success: "#447604", 
       },
       fontSize: {
         xxl: "90px",
