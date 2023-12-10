@@ -6,9 +6,5 @@ import AdminDashboard from "../../admin/dashboard";
 export default function DashboardPage() {
   const user = SessionStorageService.getItem("user");
 
-  return (
-    <>
-      <AdminDashboard />
-    </>
-  );
+  return <>{user.role === "admin" ? <AdminDashboard /> : ""}</>;
 }

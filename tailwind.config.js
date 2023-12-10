@@ -7,7 +7,7 @@ module.exports = {
         primary: "#191919",
         secondary: "#ffffff",
         tertiary: "#0D21A1",
-        quaternary: "#E6E8E6",
+        quaternary: "#FCF7F8",
         error: "#A52422",
         success: "#447604", 
       },
