@@ -1,0 +1,14 @@
+{
+  "admin": [
+    {
+      "path": "/dashboard",
+      "name": "Dashboard",
+      "icon": "fa-home"
+    },
+    {
+      "path": "/user-management",
+      "name": "User Management",
+      "icon": "fa-users"
+    }
+  ]
+}

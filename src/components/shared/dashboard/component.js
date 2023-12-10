@@ -1,7 +1,14 @@
-import React from 'react'
+import React from "react";
+
+import SessionStorageService from "../../../services/sessionStorage";
+import AdminDashboard from "../../admin/dashboard";
 
 export default function DashboardPage() {
+  const user = SessionStorageService.getItem("user");
+
   return (
-    <div>DashboardPage</div>
-  )
+    <>
+      <AdminDashboard />
+    </>
+  );
 }
