@@ -1,15 +1,15 @@
 import React from "react";
 import SessionStorageService from "../services/sessionStorage";
-import RedirectToDashboard from "../utils/redirectToDashboard";
+import RedirectToLogin from "../utils/redirectToLogin";
 
-const AuthGuard = ({ children }) => {
+const GuestGuard = ({ children }) => {
   const token = SessionStorageService.getItem("token");
 
-  if (token) {
-    RedirectToDashboard();
+  if (!token) {
+    RedirectToLogin();
   } else {
     return <>{children}</>;
   }
 };
 
-export default AuthGuard;
+export default GuestGuard;
