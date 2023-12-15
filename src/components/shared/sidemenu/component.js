@@ -5,6 +5,7 @@ import Logo from "../../../assets/img/logo.svg";
 import SessionStorageService from "../../../services/sessionStorage";
 import logoutUser from "../../../libs/auth/logoutUser";
 import RedirectToLogin from "../../../utils/redirectToLogin";
+import UserIcon from "../../../assets/img/user.png";
 
 function SideMenuBar({ links }) {
   const currentPath = window.location.pathname;
@@ -54,8 +55,8 @@ function SideMenuBar({ links }) {
 
         <div className="mt-auto flex gap-x-4 items-center">
           <img
-            className="w-12 rounded-full h-12 object-cover"
-            src="https://images.unsplash.com/photo-1559893088-c0787ebfc084?q=80&w=3570&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            className="w-12 rounded-full h-12 object-cover object-center"
+            src={user.profilePicture ? `http://localhost:3000/${user.profilePicture}` :UserIcon}
           />
           <div className="overview">
             <p className="font-bold">{user.name}</p>

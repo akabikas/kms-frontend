@@ -11,7 +11,7 @@ const initFormValues = {
 
 const initFormState = {
   values: initFormValues,
-};
+}; 
 
 function Login() {
   const [formState, setFormState] = useState(initFormState);

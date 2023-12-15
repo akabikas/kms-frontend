@@ -5,6 +5,7 @@ import DashboardPage from "./components/shared/dashboard/component";
 import GuestGuard from "./guards/guestGuard";
 import AuthGuard from "./guards/authGuard";
 import UserManagement from "./components/admin/userManagement";
+import AddUser from "./components/admin/addUser";
 
 function App() {
   return (
@@ -39,6 +40,14 @@ function App() {
           element={
             <GuestGuard>
               <UserManagement />
+            </GuestGuard>
+          }
+        />
+        <Route
+          path="/user-management/add-user"
+          element={
+            <GuestGuard>
+              <AddUser />
             </GuestGuard>
           }
         />

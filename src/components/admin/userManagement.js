@@ -15,6 +15,7 @@ function UserManagement() {
     const fetchData = async () => {
       try {
         const usersData = await getAllUsers(token, user);
+        
         if (usersData.success) {
           setUsers(usersData.data.users);
         } else {
@@ -28,12 +29,13 @@ function UserManagement() {
     fetchData();
   }, []);
 
+
   return (
     <Layout MenuData={MenuData.admin}>
       <div className="page_content">
         <h1 className="text-sm font-bold">User management</h1>
         <div className="relative mt-10">
-          <table className="w-full text-sm text-left rtl:text-right">
+          <table className="w-full text-sm text-left rtl:text-right ">
             <thead className="text-xxs">
               <tr>
                 <th
@@ -60,7 +62,7 @@ function UserManagement() {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {users?.map((user, index) => (
                 <tr className="border-0 text-xxs text-primary" key={index}>
                   <td
                     scope="row"
