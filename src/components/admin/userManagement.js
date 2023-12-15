@@ -96,9 +96,9 @@ function UserManagement() {
                     {userSingle.role}
                   </td>
                   <td className="flex items-center px-6 py-4 bg-gray-100">
-                    <span className=" bg-transparent">
+                    {/* <span className=" bg-transparent">
                       <i className="fa-light fa-pen-to-square"></i>
-                    </span>
+                    </span> */}
                     <span
                       className={`ml-3 bg-transparent delete-user cursor-pointer ${
                         user._id === userSingle._id ? "disabled opacity-25" : ""
