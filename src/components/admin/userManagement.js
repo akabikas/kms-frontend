@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import MenuData from "../../assets/data/menu.json";
 import getAllUsers from "../../libs/auth/getAllUsers";
 import SessionStorageService from "../../services/sessionStorage";
+import deleteUser from "../../libs/auth/deleteUser";
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
@@ -15,7 +16,7 @@ function UserManagement() {
     const fetchData = async () => {
       try {
         const usersData = await getAllUsers(token, user);
-        
+
         if (usersData.success) {
           setUsers(usersData.data.users);
         } else {
@@ -29,6 +30,22 @@ function UserManagement() {
     fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    if (user._id === id) {
+      console.log("You can't delete this user");
+      return;
+    }
+    try {
+      const deleteUserResponse = await deleteUser(token, id);
+
+      if (deleteUserResponse.success) {
+        const usersData = await getAllUsers(token, user);
+        setUsers(usersData.data.users);
+      } else {
+        console.error(deleteUserResponse.error);
+      }
+    } catch (error) {}
+  };
 
   return (
     <Layout MenuData={MenuData.admin}>
@@ -62,29 +79,34 @@ function UserManagement() {
               </tr>
             </thead>
             <tbody>
-              {users?.map((user, index) => (
+              {users?.map((userSingle, index) => (
                 <tr className="border-0 text-xxs text-primary" key={index}>
                   <td
                     scope="row"
                     className="px-6 py-4 bg-gray-100 font-regular"
                   >
-                    {user.name}
+                    {userSingle.name}
                   </td>
-                  <td className="px-6 py-4 bg-gray-100">{user.email}</td>
+                  <td className="px-6 py-4 bg-gray-100">{userSingle.email}</td>
                   <td className="px-6 py-4 bg-gray-100">**********</td>
                   <td className="px-6 py-4 bg-gray-100 capitalize">
-                    {user.organisation}
+                    {userSingle.organisation}
                   </td>
                   <td className="px-6 py-4 bg-gray-100 capitalize">
-                    {user.role}
+                    {userSingle.role}
                   </td>
                   <td className="flex items-center px-6 py-4 bg-gray-100">
-                    <a href="#" className=" bg-transparent">
+                    <span className=" bg-transparent">
                       <i className="fa-light fa-pen-to-square"></i>
-                    </a>
-                    <a href="#" className=" ml-3 bg-transparent">
+                    </span>
+                    <span
+                      className={`ml-3 bg-transparent delete-user cursor-pointer ${
+                        user._id === userSingle._id ? "disabled opacity-25" : ""
+                      }`}
+                      onClick={() => handleDelete(userSingle._id)}
+                    >
                       <i className="fa-regular fa-trash-can"></i>
-                    </a>
+                    </span>
                   </td>
                 </tr>
               ))}
