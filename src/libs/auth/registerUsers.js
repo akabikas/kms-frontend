@@ -7,6 +7,7 @@ const registerUser = async (data, token) => {
     formData.append('password', data.password);
     formData.append('role', data.role);
     formData.append('organisation', data.organisation);
+    formData.append('sendEmail', data.sendEmail);
     formData.append('profilePicture', data.profilePicture); 
     const response = await fetch('http://localhost:3000/api/register', {
       method: 'POST',

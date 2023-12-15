@@ -16,6 +16,7 @@ const initFormValues = {
   organisation: "",
   role: "",
   profilePicture: "",
+  sendEmail: ""
 };
 
 const initFormState = {
@@ -27,7 +28,6 @@ function AddUser() {
   const [touched, setTouched] = useState([]);
   const [formStatus, setFormStatus] = useState([]);
   const { values } = formState;
-
 
   const token = SessionStorageService.getItem("token");
 
@@ -71,7 +71,6 @@ function AddUser() {
     }));
 
   const handleAddUser = async () => {
-
     if (
       !values.fullname ||
       !values.email ||
@@ -100,7 +99,8 @@ function AddUser() {
         profilePicture: true,
       }));
       return;
-    } if(values.password !== values.confirmPassword){
+    }
+    if (values.password !== values.confirmPassword) {
       setFormStatus(() => ({
         hasError: true,
         submitStatus: false,
@@ -278,6 +278,12 @@ function AddUser() {
                   }`}
                 />
               </fieldset>
+              <div className="send-email flex mt-5">
+                <input type="checkbox" id="send-creds" className="mr-2 cursor-pointer" name="sendEmail" onChange={handleFormChange}></input>
+                <label htmlFor="send-creds" className="w-full">
+                  Email credentials to this user.
+                </label>
+              </div>
             </div>
             <div className="col-span-8 overflow-hidden flex flex-col items-center relative">
               <input
