@@ -6,6 +6,7 @@ import Layout from "../../shared/layout/component";
 import UserIcon from "../../../assets/img/user.png";
 import registerUser from "../../../libs/auth/registerUsers";
 import SessionStorageService from "../../../services/sessionStorage";
+import NotificationModal from "../../shared/modal/notificationModal";
 
 const initFormValues = {
   fullname: "",
@@ -16,7 +17,7 @@ const initFormValues = {
   organisation: "",
   role: "",
   profilePicture: "",
-  sendEmail: ""
+  sendEmail: "",
 };
 
 const initFormState = {
@@ -28,6 +29,12 @@ function AddUser() {
   const [touched, setTouched] = useState([]);
   const [formStatus, setFormStatus] = useState([]);
   const { values } = formState;
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const token = SessionStorageService.getItem("token");
 
@@ -98,6 +105,7 @@ function AddUser() {
         role: true,
         profilePicture: true,
       }));
+      setShowModal(true);
       return;
     }
     if (values.password !== values.confirmPassword) {
@@ -118,6 +126,7 @@ function AddUser() {
         role: true,
         profilePicture: true,
       }));
+      setShowModal(true);
       return;
     }
 
@@ -141,12 +150,14 @@ function AddUser() {
         message: data.message,
       }));
       setProfilePicture(UserIcon);
+      setShowModal(true);
     } else {
       setFormStatus(() => ({
         hasError: true,
         submitStatus: false,
         message: error,
       }));
+      setShowModal(true);
     }
   };
 
@@ -279,7 +290,13 @@ function AddUser() {
                 />
               </fieldset>
               <div className="send-email flex mt-5">
-                <input type="checkbox" id="send-creds" className="mr-2 cursor-pointer" name="sendEmail" onChange={handleFormChange}></input>
+                <input
+                  type="checkbox"
+                  id="send-creds"
+                  className="mr-2 cursor-pointer"
+                  name="sendEmail"
+                  onChange={handleFormChange}
+                ></input>
                 <label htmlFor="send-creds" className="w-full">
                   Email credentials to this user.
                 </label>
@@ -300,20 +317,19 @@ function AddUser() {
               <p className="mt-5 font-bold">Profile picture</p>
             </div>
           </form>
-          {formStatus ? (
-            <p
-              className={
-                formStatus.hasError
-                  ? "text-error text-xxxs mt-5"
-                  : "text-success text-xxxs mt-5"
-              }
-            >
-              {formStatus.message}
-            </p>
+          {formStatus && formStatus.hasError ? (
+            <p className="text-error text-xxxs mt-5">{formStatus.message}</p>
+          ) : formStatus && !formStatus.hasError && showModal ? (
+            <NotificationModal
+              title="Success"
+              caption={formStatus.message}
+              icon="fa-sharp fa-circle-check text-success"
+              onClose={handleCloseModal}
+            />
           ) : (
             ""
           )}
-          <div className="button-wrapper flex justify-start mt-20">
+          <div className="button-wrapper flex justify-start mt-12">
             <a
               onClick={handleAddUser}
               className="cursor-pointer border border-primary outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"

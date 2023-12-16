@@ -6,6 +6,7 @@ import Select from "react-tailwindcss-select";
 import getAllUsers from "../../../libs/auth/getAllUsers";
 import SessionStorageService from "../../../services/sessionStorage";
 import addProject from "../../../libs/project/addProject";
+import NotificationModal from "../../shared/modal/notificationModal";
 
 const initFormValues = {
   title: "",
@@ -23,6 +24,12 @@ function AddProject() {
   const [users, setUsers] = useState([]);
   const token = SessionStorageService.getItem("token");
   const user = SessionStorageService.getItem("user");
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   const [formState, setFormState] = useState(initFormState);
   const [touched, setTouched] = useState([]);
@@ -140,6 +147,7 @@ function AddProject() {
         status: true,
         assignedTo: true,
       }));
+      setShowModal(true);
       return;
     }
     const { success, data, error } = await addProject(values, token);
@@ -163,12 +171,14 @@ function AddProject() {
       if (fileInput) {
         fileInput.value = "";
       }
+      setShowModal(true);
     } else {
       setFormStatus(() => ({
         hasError: true,
         submitStatus: false,
         message: error,
       }));
+      setShowModal(true);
     }
   };
   return (
@@ -312,16 +322,15 @@ function AddProject() {
               </div>
             </fieldset>
           </form>
-          {formStatus ? (
-            <p
-              className={
-                formStatus.hasError
-                  ? "text-error text-xxxs mt-5"
-                  : "text-success text-xxxs mt-5"
-              }
-            >
-              {formStatus.message}
-            </p>
+          {formStatus && formStatus.hasError ? (
+            <p className="text-error text-xxxs mt-5">{formStatus.message}</p>
+          ) : formStatus && !formStatus.hasError && showModal ? (
+            <NotificationModal
+              title="Success"
+              caption={formStatus.message}
+              icon="fa-sharp fa-circle-check text-success"
+              onClose={handleCloseModal}
+            />
           ) : (
             ""
           )}
