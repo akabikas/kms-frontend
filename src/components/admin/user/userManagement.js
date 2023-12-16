@@ -6,9 +6,13 @@ import MenuData from "../../../assets/data/menu.json";
 import getAllUsers from "../../../libs/auth/getAllUsers";
 import SessionStorageService from "../../../services/sessionStorage";
 import deleteUser from "../../../libs/auth/deleteUser";
+import DeleteModal from "../../shared/modal/deleteModal";
 
 function UserManagement() {
   const [users, setUsers] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+
   const token = SessionStorageService.getItem("token");
   const user = SessionStorageService.getItem("user");
 
@@ -35,20 +39,43 @@ function UserManagement() {
       console.log("You can't delete this user");
       return;
     }
+    setUserToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
     try {
-      const deleteUserResponse = await deleteUser(token, id);
+      const deleteUserResponse = await deleteUser(token, userToDelete);
 
       if (deleteUserResponse.success) {
         const usersData = await getAllUsers(token, user);
         setUsers(usersData.data.users);
+        setShowDeleteModal(false);
       } else {
         console.error(deleteUserResponse.error);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setUserToDelete(null);
   };
 
   return (
     <Layout MenuData={MenuData.admin}>
+      {showDeleteModal && (
+        <DeleteModal
+          title="Delete user"
+          caption="Are you sure you want to delete this user?"
+          icon="fa-trash"
+          buttonText="Delete"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
       <div className="page_content">
         <h1 className="text-sm font-bold">User management</h1>
         <div className="relative mt-10">
