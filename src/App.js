@@ -4,8 +4,9 @@ import Login from "./components/auth/login/login";
 import DashboardPage from "./components/shared/dashboard/component";
 import GuestGuard from "./guards/guestGuard";
 import AuthGuard from "./guards/authGuard";
-import UserManagement from "./components/admin/userManagement";
-import AddUser from "./components/admin/addUser";
+import UserManagement from "./components/admin/user/userManagement";
+import AddUser from "./components/admin/user/addUser";
+import AllProject from "./components/admin/project/allProject";
 
 function App() {
   return (
@@ -48,6 +49,14 @@ function App() {
           element={
             <GuestGuard>
               <AddUser />
+            </GuestGuard>
+          }
+        />
+        <Route
+          path="/projects"
+          element={
+            <GuestGuard>
+              <AllProject />
             </GuestGuard>
           }
         />

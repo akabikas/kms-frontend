@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../shared/layout/component";
+import Layout from "../../shared/layout/component";
 import { Link } from "react-router-dom";
 
-import MenuData from "../../assets/data/menu.json";
-import getAllUsers from "../../libs/auth/getAllUsers";
-import SessionStorageService from "../../services/sessionStorage";
-import deleteUser from "../../libs/auth/deleteUser";
+import MenuData from "../../../assets/data/menu.json";
+import getAllUsers from "../../../libs/auth/getAllUsers";
+import SessionStorageService from "../../../services/sessionStorage";
+import deleteUser from "../../../libs/auth/deleteUser";
 
 function UserManagement() {
   const [users, setUsers] = useState([]);

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import MenuData from "../../assets/data/menu.json";
-import Layout from "../shared/layout/component";
+import MenuData from "../../../assets/data/menu.json";
+import Layout from "../../shared/layout/component";
 
-import UserIcon from "../../assets/img/user.png";
-import registerUser from "../../libs/auth/registerUsers";
-import SessionStorageService from "../../services/sessionStorage";
+import UserIcon from "../../../assets/img/user.png";
+import registerUser from "../../../libs/auth/registerUsers";
+import SessionStorageService from "../../../services/sessionStorage";
 
 const initFormValues = {
   fullname: "",

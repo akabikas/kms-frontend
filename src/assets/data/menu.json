@@ -9,6 +9,11 @@
       "path": "/user-management",
       "name": "User Management",
       "icon": "fa-users"
+    },
+    {
+      "path": "/projects",
+      "name": "Projects",
+      "icon": "fa-folder-open"
     }
   ]
 }
