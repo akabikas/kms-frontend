@@ -6,8 +6,9 @@ import GuestGuard from "./guards/guestGuard";
 import AuthGuard from "./guards/authGuard";
 import UserManagement from "./components/admin/user/userManagement";
 import AddUser from "./components/admin/user/addUser";
-import AllProject from "./components/admin/project/allProject";
-import AddProject from "./components/admin/project/addProject";
+import AllProject from "./components/shared/project/allProject";
+import AddProject from "./components/shared/project/addProject";
+import SingleProject from "./components/shared/project/singleProject";
 
 function App() {
   return (
@@ -58,6 +59,14 @@ function App() {
           element={
             <GuestGuard>
               <AllProject />
+            </GuestGuard>
+          }
+        />
+        <Route
+          path="/projects/:projectId"
+          element={
+            <GuestGuard>
+              <SingleProject />
             </GuestGuard>
           }
         />

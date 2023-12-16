@@ -129,9 +129,9 @@ function AllProject() {
                     {projectsSingle.status}
                   </td>
                   <td className="flex items-center px-6 py-4 bg-gray-100">
-                    <span className=" bg-transparent mr-3 cursor-pointer">
+                    <Link to={`/projects/${projectsSingle._id}`} className=" bg-transparent mr-3 cursor-pointer">
                       <i className="fa-regular fa-eye"></i>
-                    </span>
+                    </Link>
                     <span className="bg-transparent cursor-pointer">
                       <i className="fa-regular fa-pen-to-square"></i>
                     </span>

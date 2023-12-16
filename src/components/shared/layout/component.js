@@ -5,7 +5,7 @@ function Layout({MenuData, children}) {
   return (
     <section className="grid grid-cols-24">
       <SideMenuBar links={MenuData} />
-      <section className="col-span-19 py-6 px-20">
+      <section className="col-span-22 py-6 pl-[500px]">
             {children}
       </section>
     </section>

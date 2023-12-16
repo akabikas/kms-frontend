@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import MenuData from "../../../assets/data/menu.json";
-import Layout from "../../shared/layout/component";
+import Layout from "../layout/component";
 import Select from "react-tailwindcss-select";
 import getAllUsers from "../../../libs/auth/getAllUsers";
 import SessionStorageService from "../../../services/sessionStorage";
 import addProject from "../../../libs/project/addProject";
-import NotificationModal from "../../shared/modal/notificationModal";
+import NotificationModal from "../modal/notificationModal";
 
 const initFormValues = {
   title: "",
