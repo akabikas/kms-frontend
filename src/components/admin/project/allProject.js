@@ -6,11 +6,15 @@ import SessionStorageService from "../../../services/sessionStorage";
 import getAllProjects from "../../../libs/project/getProjects";
 import { Link } from "react-router-dom";
 import deleteProject from "../../../libs/project/deleteProject";
+import DeleteModal from "../../shared/modal/deleteModal";
 
 function AllProject() {
   const [projects, setProjects] = useState([]);
   const token = SessionStorageService.getItem("token");
   const user = SessionStorageService.getItem("user");
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [projectToDelete, setProjectToDelete] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,20 +35,43 @@ function AllProject() {
   }, []);
 
   const handleDelete = async (id) => {
+    setProjectToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
     try {
-      const deleteProjectResponse = await deleteProject(token, id);
+      const deleteProjectResponse = await deleteProject(token, projectToDelete);
 
       if (deleteProjectResponse.success) {
         const projectsData = await getAllProjects(token, user);
         setProjects(projectsData.data.projects);
+        setShowDeleteModal(false);
       } else {
         console.error(deleteProjectResponse.error);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setProjectToDelete(null);
   };
 
   return (
     <Layout MenuData={MenuData.admin}>
+      {showDeleteModal && (
+        <DeleteModal
+          title="Delete project"
+          caption="Are you sure you want to remove the project? All of your data will be permanently removed from our servers forever. This action cannot be undone."
+          icon="fa-trash"
+          buttonText="Delete"
+          onConfirm={confirmDelete}
+          onCancel={cancelDelete}
+        />
+      )}
       <section className="all-projects">
         <div className="title">
           <h1 className="text-sm font-bold">All projects</h1>
@@ -83,7 +110,10 @@ function AllProject() {
                     {projectsSingle.name}
                   </td>
                   <td className="px-6 py-4 bg-gray-100">
-                    {projectsSingle.description}
+                    {projectsSingle.description
+                      .split(" ")
+                      .slice(0, 5)
+                      .join(" ") + "..."}
                   </td>
                   <td className="px-6 py-4 bg-gray-100">
                     {projectsSingle.assignedTo.map((assignedUser, index) => (
@@ -99,8 +129,11 @@ function AllProject() {
                     {projectsSingle.status}
                   </td>
                   <td className="flex items-center px-6 py-4 bg-gray-100">
-                    <span className=" bg-transparent">
-                      <i className="fa-light fa-pen-to-square"></i>
+                    <span className=" bg-transparent mr-3 cursor-pointer">
+                      <i className="fa-regular fa-eye"></i>
+                    </span>
+                    <span className="bg-transparent cursor-pointer">
+                      <i className="fa-regular fa-pen-to-square"></i>
                     </span>
                     <span
                       className={`ml-3 bg-transparent delete-user cursor-pointer ${
@@ -130,5 +163,5 @@ function AllProject() {
     </Layout>
   );
 }
-//   onClick={() => handleDelete(projectsingle._id)}
+
 export default AllProject;
