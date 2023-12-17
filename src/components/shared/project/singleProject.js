@@ -56,22 +56,6 @@ function SingleProject() {
     }
   }, [project.documents]);
 
-  const listEndRef = useRef(null);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [emails]);
-
-  const scrollToBottom = () => {
-    if (listEndRef.current) {
-      listEndRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
-    }
-  };
-
   return (
     <Layout
       MenuData={
@@ -257,7 +241,6 @@ function SingleProject() {
                     </li>
                   ))
                 : ""}
-              <div ref={listEndRef} />
             </ul>
           </div>
         </div>

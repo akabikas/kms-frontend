@@ -168,9 +168,9 @@ function AllProject() {
                               >
                                 <i className="fa-regular fa-eye"></i>
                               </Link>
-                              <span className="bg-transparent cursor-pointer">
+                              {/* <Link to={`/projects/edit-project/${projectsSingle._id}`} className="bg-transparent cursor-pointer">
                                 <i className="fa-regular fa-pen-to-square"></i>
-                              </span>
+                              </Link> */}
                               <span
                                 className={`ml-3 bg-transparent delete-user cursor-pointer ${
                                   user._id === projectsSingle._id

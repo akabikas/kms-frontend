@@ -11,6 +11,7 @@ import AddProject from "./components/shared/project/addProject";
 import SingleProject from "./components/shared/project/singleProject";
 import EditAccount from "./components/shared/edit-account/editAccount";
 import Notifications from "./components/shared/notifications/notifications";
+import EditProject from "./components/shared/project/editProject";
 
 function App() {
   return (
@@ -80,6 +81,14 @@ function App() {
             </GuestGuard>
           }
         />
+        {/* <Route
+          path="/projects/edit-project/:projectId"
+          element={
+            <GuestGuard>
+              <EditProject />
+            </GuestGuard>
+          }
+        /> */}
         <Route
           path="/edit-account"
           element={
