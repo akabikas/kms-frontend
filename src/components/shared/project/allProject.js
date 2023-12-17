@@ -87,82 +87,116 @@ function AllProject() {
           </h3>
         </div>
         <div className="relative mt-10">
-          <table className="w-full text-sm text-left rtl:text-right ">
-            <thead className="text-xxs">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3  text-secondary bg-primary"
-                >
-                  Project title
-                </th>
-                <th scope="col" className="px-6 py-3 text-secondary bg-primary">
-                  Description
-                </th>
-                <th scope="col" className="px-6 py-3 text-secondary bg-primary">
-                  Assigned to
-                </th>
-                <th scope="col" className="px-6 py-3 text-secondary bg-primary">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3 text-secondary bg-primary">
-                  Manage
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {projects?.map((projectsSingle, index) => (
-                <tr className="border-0 text-xxs text-primary" key={index}>
-                  <td
-                    scope="row"
-                    className="px-6 py-4 bg-gray-100 font-regular"
-                  >
-                    {projectsSingle.name}
-                  </td>
-                  <td className="px-6 py-4 bg-gray-100">
-                    {projectsSingle.description
-                      .split(" ")
-                      .slice(0, 5)
-                      .join(" ") + "..."}
-                  </td>
-                  <td className="px-6 py-4 bg-gray-100">
-                    {projectsSingle.assignedTo.map((assignedUser, index) => (
-                      <span
-                        key={index}
-                        className=" bg-emerald-600 text-white mr-2 text-xxxs px-2.5 rounded-full"
-                      >
-                        {assignedUser.name}
-                      </span>
-                    ))}
-                  </td>
-                  <td className="px-6 py-4 bg-gray-100 capitalize">
-                    {projectsSingle.status}
-                  </td>
-                  <td className="flex items-center px-6 py-4 bg-gray-100">
-                    <Link
-                      to={`/projects/${projectsSingle._id}`}
-                      className=" bg-transparent mr-3 cursor-pointer"
-                    >
-                      <i className="fa-regular fa-eye"></i>
-                    </Link>
-                    <span className="bg-transparent cursor-pointer">
-                      <i className="fa-regular fa-pen-to-square"></i>
-                    </span>
-                    <span
-                      className={`ml-3 bg-transparent delete-user cursor-pointer ${
-                        user._id === projectsSingle._id
-                          ? "disabled opacity-25"
-                          : ""
-                      }`}
-                      onClick={() => handleDelete(projectsSingle._id)}
-                    >
-                      <i className="fa-regular fa-trash-can"></i>
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="relative mt-10">
+            <div class="mt-8 flow-root">
+              <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                  <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-300">
+                      <thead class="bg-gray-50">
+                        <tr>
+                          <th
+                            scope="col"
+                            class="py-3.5 pl-4 pr-3 text-left text-xxs font-semibold text-gray-900 sm:pl-6"
+                          >
+                            Project title
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-3 py-3.5 text-left text-xxs font-semibold text-gray-900"
+                          >
+                            Description
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-3 py-3.5 text-left text-xxs font-semibold text-gray-900"
+                          >
+                            Assigned to
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-3 py-3.5 text-left text-xxs font-semibold text-gray-900"
+                          >
+                            Status
+                          </th>
+                          <th
+                            scope="col"
+                            class="px-3 py-3.5 text-left text-xxs font-semibold text-gray-900"
+                          >
+                            Manage
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-gray-200 bg-white">
+                        {projects?.map((projectsSingle, index) => (
+                          <tr key={index}>
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-xxs font-medium text-gray-900 sm:pl-6 capitalize">
+                              {projectsSingle.name}
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-xxs text-gray-500">
+                              {projectsSingle.description
+                                .split(" ")
+                                .slice(0, 5)
+                                .join(" ") + "..."}
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-xxs text-gray-500">
+                              {projectsSingle.assignedTo.map(
+                                (assignedUser, index) => (
+                                  <span
+                                    key={index}
+                                    className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-[12px] font-medium text-green-700 ring-1 ring-inset ring-green-600/20 mr-2"
+                                  >
+                                    {assignedUser.name}
+                                  </span>
+                                )
+                              )}
+                            </td>
+                            <td class="whitespace-nowrap px-3 py-4 text-xxxs text-gray-500 capitalize flex">
+                              <div class="flex items-center justify-end gap-x-2 sm:justify-start">
+                                <time
+                                  class="text-gray-400 sm:hidden"
+                                  datetime="2023-01-23T11:00"
+                                >
+                                  45 minutes ago
+                                </time>
+                                <div class={`flex-none rounded-full p-1 ${projectsSingle.status === "active" ? "bg-blue-300" : projectsSingle.status === "archived" ? "bg-rose-300" : "bg-green-300"}`}>
+                                  <div class={`h-1.5 w-1.5 rounded-full ${projectsSingle.status === "active" ? " bg-blue-500" : projectsSingle.status === "archived" ? "bg-rose-500" : "bg-green-500"}`}></div>
+                                </div>
+                                <div class="hidden text-primary sm:block">
+                                  {projectsSingle.status}
+                                </div>
+                              </div>
+                            </td>
+                            <td class="relative whitespace-nowrap py-4 px-3 text-xxs font-medium">
+                              <Link
+                                to={`/projects/${projectsSingle._id}`}
+                                className=" bg-transparent mr-3 cursor-pointer"
+                              >
+                                <i className="fa-regular fa-eye"></i>
+                              </Link>
+                              <span className="bg-transparent cursor-pointer">
+                                <i className="fa-regular fa-pen-to-square"></i>
+                              </span>
+                              <span
+                                className={`ml-3 bg-transparent delete-user cursor-pointer ${
+                                  user._id === projectsSingle._id
+                                    ? "disabled opacity-25"
+                                    : ""
+                                }`}
+                                onClick={() => handleDelete(projectsSingle._id)}
+                              >
+                                <i className="fa-regular fa-trash-can"></i>
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         {user.role === "admin" && (
           <div className="button-wrapper flex justify-end mt-10">
