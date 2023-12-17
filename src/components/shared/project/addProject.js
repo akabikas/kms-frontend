@@ -182,168 +182,178 @@ function AddProject() {
     }
   };
   return (
-    <Layout MenuData={MenuData.admin}>
-      <section className="add-project">
-        <div className="title">
-          <h1 className="text-sm font-bold">Add project</h1>
-        </div>
-        <div className="form-wrapper mt-10">
-          <form
-            className="add-project-form"
-            name="add-project-form"
-            action="POST"
-          >
-            <fieldset className="flex gap-x-10 w-full">
-              <input
-                type="text"
-                name="title"
-                placeholder="Project title"
-                value={values.title}
-                onChange={handleFormChange}
-                onBlur={handleFormBlur}
-                className={`text-xxs py-2 border-0 border-b outline-none w-full text-primary  ${
-                  touched.title && values.title === ""
-                    ? "border-error text-error placeholder:text-error"
-                    : "border-primary text-primary placeholder:text-primary"
-                }`}
-              />
-
-              <select
-                name="status"
-                className={`text-xxs py-2 border-0 border-b  outline-none w-full text-primary  ${
-                  touched.status && values.status === ""
-                    ? "border-error text-error"
-                    : "border-primary text-primary "
-                }`}
-                value={values.status}
-                onChange={handleFormChange}
-                onBlur={handleFormBlur}
-              >
-                <option
-                  value=""
-                  className={
-                    touched.status && values.status === ""
-                      ? " text-error"
-                      : " text-primary "
-                  }
-                >
-                  Select a status
-                </option>
-                <option value="active">Active</option>
-                <option value="archived">Archived</option>
-                <option value="done">Done</option>
-              </select>
-              <Select
-                value={assignedTo}
-                onChange={handleassignedTo}
-                name="assignedTo"
-                classNames={{
-                  menuButton: ({ isDisabled }) =>
-                    `flex text-sm text-gray-500 border border-primary rounded shadow-none transition-all duration-300 focus:outline-none focus:border-0 text-xxs border-0 border-b rounded-none ${
-                      isDisabled
-                        ? "bg-gray-200 hover:border-gray-400"
-                        : "bg-white hover:border-gray-400"
-                    }`,
-                  menu: "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700",
-                  listItem: ({ isSelected }) =>
-                    `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded text-xxs ${
-                      isSelected
-                        ? `hidden`
-                        : `text-gray-500 hover:bg-gray-100 hover:font-bold`
-                    }`,
-                }}
-                placeholder="Assign project to"
-                options={options}
-                isMultiple={true}
-              />
-            </fieldset>
-            <fieldset className="flex gap-x-10 w-full mt-5">
-              <textarea
-                type="text"
-                name="description"
-                rows={10}
-                value={values.description}
-                onChange={handleFormChange}
-                onBlur={handleFormBlur}
-                placeholder="Project description"
-                className="text-xxs py-2 border-0 border-b border-primary outline-none w-full placeholder:text-primary text-primary"
-              ></textarea>
-            </fieldset>
-            <fieldset
-              className="mt-10"
-              onDragOver={(event) => {
-                event.preventDefault();
-              }}
-              onDrop={(event) => {
-                event.preventDefault();
-                handleFileAddition(event.dataTransfer.files);
-              }}
-            >
-              <div className="border-dashed border-2 border-gray-300 p-10 flex flex-col items-center">
-                <p className="text-sm font-bold mb-10">
-                  Drag & Drop files here or click to upload
-                </p>
-                <input
-                  type="file"
-                  multiple
-                  className="hidden"
-                  name="documents"
-                  onChange={(event) => {
-                    event.preventDefault();
-                    handleFileAddition(event.target.files);
-                  }}
-                  id="fileInput"
-                />
-                <label
-                  htmlFor="fileInput"
-                  className="cursor-pointer border rounded-lg py-2 px-4 border-primary text-primary hover:bg-primary hover:text-white group"
-                >
-                  <i className="fa-solid fa-plus bg-transparent group-hover:text-white"></i>
-                </label>
-              </div>
-              <div className="mt-4">
-                {values.documents.map((file, index) => (
-                  <div
-                    key={index}
-                    className="border border-gray-300 p-2 px-4 flex justify-between items-center mt-2"
-                  >
-                    <p>{file.originalname}</p>
-                    <button
-                      onClick={(event) => {
-                        event.preventDefault();
-                        handleFileRemoval(index);
-                      }}
-                      className="text-red-500 hover:text-red-700 focus:outline-none"
-                    >
-                      <i className="fa-solid fa-xmark"></i>
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </fieldset>
-          </form>
-          {formStatus && formStatus.hasError ? (
-            <p className="text-error text-xxxs mt-5">{formStatus.message}</p>
-          ) : formStatus && !formStatus.hasError && showModal ? (
-            <NotificationModal
-              title="Success"
-              caption={formStatus.message}
-              icon="fa-sharp fa-circle-check text-success"
-              onClose={handleCloseModal}
-            />
-          ) : (
-            ""
-          )}
-          <div className="button-wrapper flex justify-start mt-20">
-            <a
-              onClick={handleAddProject}
-              className="cursor-pointer border border-primary outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
-            >
-              Add new
-            </a>
+    <Layout
+      MenuData={
+        user.role === "admin"
+          ? MenuData.admin
+          : user.role === "employee"
+          ? MenuData.employee
+          : MenuData.client
+      }
+    >
+      {user.role === "admin" ? (
+        <section className="add-project">
+          <div className="title">
+            <h1 className="text-sm font-bold">Add project</h1>
           </div>
-        </div>
-      </section>
+          <div className="form-wrapper mt-10">
+            <form
+              className="add-project-form"
+              name="add-project-form"
+              action="POST"
+            >
+              <fieldset className="flex gap-x-10 w-full">
+                <input
+                  type="text"
+                  name="title"
+                  placeholder="Project title"
+                  value={values.title}
+                  onChange={handleFormChange}
+                  onBlur={handleFormBlur}
+                  className={`text-xxs py-2 border-0 border-b outline-none w-full text-primary  ${
+                    touched.title && values.title === ""
+                      ? "border-error text-error placeholder:text-error"
+                      : "border-primary text-primary placeholder:text-primary"
+                  }`}
+                />
+
+                <select
+                  name="status"
+                  className={`text-xxs py-2 border-0 border-b  outline-none w-full text-primary  ${
+                    touched.status && values.status === ""
+                      ? "border-error text-error"
+                      : "border-primary text-primary "
+                  }`}
+                  value={values.status}
+                  onChange={handleFormChange}
+                  onBlur={handleFormBlur}
+                >
+                  <option
+                    value=""
+                    className={
+                      touched.status && values.status === ""
+                        ? " text-error"
+                        : " text-primary "
+                    }
+                  >
+                    Select a status
+                  </option>
+                  <option value="active">Active</option>
+                  <option value="archived">Archived</option>
+                  <option value="done">Done</option>
+                </select>
+                <Select
+                  value={assignedTo}
+                  onChange={handleassignedTo}
+                  name="assignedTo"
+                  classNames={{
+                    menuButton: ({ isDisabled }) =>
+                      `flex text-sm text-gray-500 border border-primary rounded shadow-none transition-all duration-300 focus:outline-none focus:border-0 text-xxs border-0 border-b rounded-none ${
+                        isDisabled
+                          ? "bg-gray-200 hover:border-gray-400"
+                          : "bg-white hover:border-gray-400"
+                      }`,
+                    menu: "absolute z-10 w-full bg-white shadow-lg border rounded py-1 mt-1.5 text-sm text-gray-700",
+                    listItem: ({ isSelected }) =>
+                      `block transition duration-200 px-2 py-2 cursor-pointer select-none truncate rounded text-xxs ${
+                        isSelected
+                          ? `hidden`
+                          : `text-gray-500 hover:bg-gray-100 hover:font-bold`
+                      }`,
+                  }}
+                  placeholder="Assign project to"
+                  options={options}
+                  isMultiple={true}
+                />
+              </fieldset>
+              <fieldset className="flex gap-x-10 w-full mt-5">
+                <textarea
+                  type="text"
+                  name="description"
+                  rows={10}
+                  value={values.description}
+                  onChange={handleFormChange}
+                  onBlur={handleFormBlur}
+                  placeholder="Project description"
+                  className="text-xxs py-2 border-0 border-b border-primary outline-none w-full placeholder:text-primary text-primary"
+                ></textarea>
+              </fieldset>
+              <fieldset
+                className="mt-10"
+                onDragOver={(event) => {
+                  event.preventDefault();
+                }}
+                onDrop={(event) => {
+                  event.preventDefault();
+                  handleFileAddition(event.dataTransfer.files);
+                }}
+              >
+                <div className="border-dashed border-2 border-gray-300 p-10 flex flex-col items-center">
+                  <p className="text-sm font-bold mb-10">
+                    Drag & Drop files here or click to upload
+                  </p>
+                  <input
+                    type="file"
+                    multiple
+                    className="hidden"
+                    name="documents"
+                    onChange={(event) => {
+                      event.preventDefault();
+                      handleFileAddition(event.target.files);
+                    }}
+                    id="fileInput"
+                  />
+                  <label
+                    htmlFor="fileInput"
+                    className="cursor-pointer border rounded-lg py-2 px-4 border-primary text-primary hover:bg-primary hover:text-white group"
+                  >
+                    <i className="fa-solid fa-plus bg-transparent group-hover:text-white"></i>
+                  </label>
+                </div>
+                <div className="mt-4">
+                  {values.documents.map((file, index) => (
+                    <div
+                      key={index}
+                      className="border border-gray-300 p-2 px-4 flex justify-between items-center mt-2"
+                    >
+                      <p>{file.originalname}</p>
+                      <button
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleFileRemoval(index);
+                        }}
+                        className="text-red-500 hover:text-red-700 focus:outline-none"
+                      >
+                        <i className="fa-solid fa-xmark"></i>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </fieldset>
+            </form>
+            {formStatus && formStatus.hasError ? (
+              <p className="text-error text-xxxs mt-5">{formStatus.message}</p>
+            ) : formStatus && !formStatus.hasError && showModal ? (
+              <NotificationModal
+                title="Success"
+                caption={formStatus.message}
+                icon="fa-sharp fa-circle-check text-success"
+                onClose={handleCloseModal}
+              />
+            ) : (
+              ""
+            )}
+            <div className="button-wrapper flex justify-start mt-20">
+              <a
+                onClick={handleAddProject}
+                className="cursor-pointer border border-primary outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
+              >
+                Add new
+              </a>
+            </div>
+          </div>
+        </section>
+      ): window.location.href="/projects"}
     </Layout>
   );
 }

@@ -10,7 +10,15 @@ export default function DashboardPage() {
 
   return (
     <>
-      <Layout MenuData={MenuData.admin}>
+      <Layout
+        MenuData={
+          user.role === "admin"
+            ? MenuData.admin
+            : user.role === "employee"
+            ? MenuData.employee
+            : MenuData.client
+        }
+      >
         {user.role === "admin" ? <AdminDashboard /> : ""}
       </Layout>
     </>

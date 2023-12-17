@@ -20,5 +20,39 @@
       "name": "Notifications",
       "icon": "fa-bells"
     }
+  ],
+  "employee": [
+    {
+      "path": "/dashboard",
+      "name": "Dashboard",
+      "icon": "fa-home"
+    },
+    {
+      "path": "/projects",
+      "name": "Projects",
+      "icon": "fa-folder-open"
+    },
+    {
+      "path": "/notifications",
+      "name": "Notifications",
+      "icon": "fa-bells"
+    }
+  ],
+  "client": [
+    {
+      "path": "/dashboard",
+      "name": "Dashboard",
+      "icon": "fa-home"
+    },
+    {
+      "path": "/projects",
+      "name": "Projects",
+      "icon": "fa-folder-open"
+    },
+    {
+      "path": "/notifications",
+      "name": "Notifications",
+      "icon": "fa-bells"
+    }
   ]
 }

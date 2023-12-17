@@ -27,7 +27,7 @@ function SideMenuBar({ links }) {
     <header className="col-span-5 min-h-screen fixed left-0 top-0 bottom-0 shadow-xl  px-10 py-6">
       <div className="sidebar bg-secondary h-[calc(100vh-48px)]  flex flex-col ">
         <div className="top">
-          <div className="brand mb-16">
+          <div className="brand mb-16   px-4">
             <img src={Logo} className="w-24" />
           </div>
           <div className="menu">
@@ -35,14 +35,19 @@ function SideMenuBar({ links }) {
               {links.map((link, index) => (
                 <li
                   key={index}
-                  className={`mb-3 ${
-                    link.path === currentPath ? "font-bold" : ""
+                  className={`mb-3  px-4 py-2 cursor-pointer ${
+                    currentPath.startsWith(link.path)
+                      ? "font-bold bg-gray-100 rounded-md"
+                      : ""
                   }`}
                 >
-                  <Link to={link.path} className="inline-block transition-all duration-100 hover:translate-x-1">
+                  <Link
+                    to={link.path}
+                    className="block transition-all duration-100 hover:translate-x-1 bg-transparent"
+                  >
                     <i
-                      className={`fa-light ${link.icon} pr-4 ${
-                        link.path === currentPath ? "font-regular" : ""
+                      className={`fa-light ${link.icon} pr-4 bg-transparent ${
+                        currentPath.startsWith(link.path) ? "font-regular" : ""
                       }`}
                     ></i>
                     {link.name}
@@ -52,18 +57,49 @@ function SideMenuBar({ links }) {
             </ul>
           </div>
         </div>
-
+        <div className="mb-10 mt-10">
+          <h2 className="text-xxxs text-gray-500 mb-4  px-4">Your items</h2>
+          <ul>
+            <li
+              className={`mb-3  px-4 py-2 cursor-pointer  ${
+                currentPath.startsWith("/edit-account")
+                  ? "font-bold bg-gray-100 rounded-md"
+                  : ""
+              }`}
+            >
+              {" "}
+              <Link
+                to="/edit-account"
+                className="block transition-all duration-100 hover:translate-x-1 bg-transparent"
+              >
+                <i
+                  className={`fa-light fa-gear mr-4 bg-transparent ${
+                    currentPath.startsWith("/edit-account") ? "font-regular" : ""
+                  }`}
+                ></i>
+                Edit account
+              </Link>
+            </li>
+          </ul>
+        </div>
         <div className="mt-auto flex gap-x-4 items-center">
           <img
             className="w-12 rounded-full h-12 object-cover object-center"
-            src={user.profilePicture ? `http://localhost:3000/${user.profilePicture}` :UserIcon}
+            src={
+              user.profilePicture
+                ? `http://localhost:3000/${user.profilePicture}`
+                : UserIcon
+            }
           />
           <div className="overview">
             <p className="font-bold">{user.name}</p>
             <p className="text-xxxs">{user.email}</p>
           </div>
           <div className="logout pl-5 pt-3 cursor-pointer">
-            <a onClick={handleLogout} className="inline-block transition-all duration-100 hover:translate-x-1">
+            <a
+              onClick={handleLogout}
+              className="inline-block transition-all duration-100 hover:translate-x-1"
+            >
               <i className="text-sm fa-light fa-arrow-right-from-bracket"></i>
             </a>
           </div>

@@ -61,7 +61,15 @@ function AllProject() {
   };
 
   return (
-    <Layout MenuData={MenuData.admin}>
+    <Layout
+      MenuData={
+        user.role === "admin"
+          ? MenuData.admin
+          : user.role === "employee"
+          ? MenuData.employee
+          : MenuData.client
+      }
+    >
       {showDeleteModal && (
         <DeleteModal
           title="Delete project"
@@ -129,7 +137,10 @@ function AllProject() {
                     {projectsSingle.status}
                   </td>
                   <td className="flex items-center px-6 py-4 bg-gray-100">
-                    <Link to={`/projects/${projectsSingle._id}`} className=" bg-transparent mr-3 cursor-pointer">
+                    <Link
+                      to={`/projects/${projectsSingle._id}`}
+                      className=" bg-transparent mr-3 cursor-pointer"
+                    >
                       <i className="fa-regular fa-eye"></i>
                     </Link>
                     <span className="bg-transparent cursor-pointer">
@@ -151,14 +162,16 @@ function AllProject() {
             </tbody>
           </table>
         </div>
-        <div className="button-wrapper flex justify-end mt-10">
-          <Link
-            to="/projects/add-project"
-            className="border border-primary outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
-          >
-            Add new
-          </Link>
-        </div>
+        {user.role === "admin" && (
+          <div className="button-wrapper flex justify-end mt-10">
+            <Link
+              to="/projects/add-project"
+              className="border border-primary outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
+            >
+              Add new
+            </Link>
+          </div>
+        )}
       </section>
     </Layout>
   );

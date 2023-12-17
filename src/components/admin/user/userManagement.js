@@ -19,12 +19,14 @@ function UserManagement() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const usersData = await getAllUsers(token, user);
+        if (user.role === "admin") {
+          const usersData = await getAllUsers(token, user);
 
-        if (usersData.success) {
-          setUsers(usersData.data.users);
-        } else {
-          console.error(usersData.error);
+          if (usersData.success) {
+            setUsers(usersData.data.users);
+          } else {
+            console.error(usersData.error);
+          }
         }
       } catch (error) {
         console.error("Error during user retrieval:", error.message);
@@ -64,8 +66,16 @@ function UserManagement() {
     setUserToDelete(null);
   };
 
-  return (
-    <Layout MenuData={MenuData.admin}>
+  return user.role === "admin" ? (
+    <Layout
+      MenuData={
+        user.role === "admin"
+          ? MenuData.admin
+          : user.role === "employee"
+          ? MenuData.employee
+          : MenuData.client
+      }
+    >
       {showDeleteModal && (
         <DeleteModal
           title="Delete user"
@@ -150,6 +160,8 @@ function UserManagement() {
         </div>
       </div>
     </Layout>
+  ) : (
+    (window.location.href = "/dashboard")
   );
 }
 

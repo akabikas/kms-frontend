@@ -42,7 +42,15 @@ function SingleProject() {
   }, [project.documents]);
 
   return (
-    <Layout MenuData={MenuData.admin}>
+    <Layout
+      MenuData={
+        user.role === "admin"
+          ? MenuData.admin
+          : user.role === "employee"
+          ? MenuData.employee
+          : MenuData.client
+      }
+    >
       <section className="single-project pb-40">
         <div className="overview">
           <h1 className="text-lg font-bold">{project.name}</h1>

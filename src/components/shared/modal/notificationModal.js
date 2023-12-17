@@ -6,7 +6,7 @@ function NotificationModal({ title, caption, icon, onClose }) {
       aria-live="assertive"
       className="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6 bg-transparent"
     >
-      <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
+      <div className="flex w-full flex-col items-center space-y-4 sm:items-end bg-transparent">
         <div className="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
           <div className="p-4">
             <div className="flex items-start">

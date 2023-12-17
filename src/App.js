@@ -9,6 +9,7 @@ import AddUser from "./components/admin/user/addUser";
 import AllProject from "./components/shared/project/allProject";
 import AddProject from "./components/shared/project/addProject";
 import SingleProject from "./components/shared/project/singleProject";
+import EditAccount from "./components/shared/edit-account/editAccount";
 
 function App() {
   return (
@@ -75,6 +76,14 @@ function App() {
           element={
             <GuestGuard>
               <AddProject />
+            </GuestGuard>
+          }
+        />
+        <Route
+          path="/edit-account"
+          element={
+            <GuestGuard>
+              <EditAccount />
             </GuestGuard>
           }
         />

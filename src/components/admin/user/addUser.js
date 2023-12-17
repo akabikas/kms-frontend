@@ -37,6 +37,7 @@ function AddUser() {
   };
 
   const token = SessionStorageService.getItem("token");
+  const user = SessionStorageService.getItem("user");
 
   const [profilePicture, setProfilePicture] = useState(UserIcon);
 
@@ -78,6 +79,28 @@ function AddUser() {
     }));
 
   const handleAddUser = async () => {
+    if (user.role !== "admin") {
+      setFormStatus(() => ({
+        hasError: true,
+        submitStatus: false,
+        message: "One or more fields are empty.",
+      }));
+
+      setTouched((prev) => ({
+        ...prev,
+        fullname: true,
+        email: true,
+        biography: true,
+        password: true,
+        confirmPassword: true,
+        organisation: true,
+        role: true,
+        profilePicture: true,
+      }));
+      setShowModal(true);
+      return;
+    }
+
     if (
       !values.fullname ||
       !values.email ||
@@ -166,8 +189,16 @@ function AddUser() {
     fileInput.click();
   };
 
-  return (
-    <Layout MenuData={MenuData.admin}>
+  return user.role === "admin" ? (
+    <Layout
+      MenuData={
+        user.role === "admin"
+          ? MenuData.admin
+          : user.role === "employee"
+          ? MenuData.employee
+          : MenuData.client
+      }
+    >
       <div>
         <h1 className="text-sm font-bold">Add user</h1>
         <div className="mt-20">
@@ -340,6 +371,8 @@ function AddUser() {
         </div>
       </div>
     </Layout>
+  ) : (
+    (window.location.href = "/dashboard")
   );
 }
 
