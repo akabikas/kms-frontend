@@ -1,7 +1,7 @@
-const editUser = async (data, userID, token) => {
+const editPassword = async (data, userID, token) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/edit-user-personal?id=${userID}`,
+        `http://localhost:3000/api/edit-user-password?id=${userID}`,
         {
           method: "POST",
           headers: {
@@ -9,9 +9,9 @@ const editUser = async (data, userID, token) => {
             "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify({
-              name: data.fullname,
-              email: data.email,
-              biography: data.biography
+              oldPass: data.oldPass,
+              newPass: data.newPass,
+              confirmNewPass: data.confirmNewPass
           }),
         }
       );
@@ -23,16 +23,16 @@ const editUser = async (data, userID, token) => {
         const error = await response.json();
         return {
           success: false,
-          error: error.message || "Failed to update your information",
+          error: error.message || "Failed to update your password",
         };
       }
     } catch (error) {
       return {
         success: false,
-        error: error.message || "Error while updating personal info",
+        error: error.message || "Error while updating your password.",
       };
     }
   };
   
-  export default editUser;
+  export default editPassword;
   
