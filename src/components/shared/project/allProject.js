@@ -153,12 +153,6 @@ function AllProject() {
                             </td>
                             <td class="whitespace-nowrap px-3 py-4 text-xxxs text-gray-500 capitalize flex">
                               <div class="flex items-center justify-end gap-x-2 sm:justify-start">
-                                <time
-                                  class="text-gray-400 sm:hidden"
-                                  datetime="2023-01-23T11:00"
-                                >
-                                  45 minutes ago
-                                </time>
                                 <div class={`flex-none rounded-full p-1 ${projectsSingle.status === "active" ? "bg-blue-300" : projectsSingle.status === "archived" ? "bg-rose-300" : "bg-green-300"}`}>
                                   <div class={`h-1.5 w-1.5 rounded-full ${projectsSingle.status === "active" ? " bg-blue-500" : projectsSingle.status === "archived" ? "bg-rose-500" : "bg-green-500"}`}></div>
                                 </div>
