@@ -237,7 +237,7 @@ function AddProject() {
 
                 <select
                   name="status"
-                  className={`text-xxs py-2 border-0 border-b  outline-none w-full text-primary  ${
+                  className={`text-xxs py-2 border-0 border-b  outline-none w-full text-primary appearance-none rounded-none  ${
                     touched.status && values.status === ""
                       ? "border-error text-error"
                       : "border-primary text-primary "
@@ -264,7 +264,7 @@ function AddProject() {
               <fieldset className="flex gap-x-10 w-full mt-5">
                 <select
                   name="assignedEmail"
-                  className={`text-xxs py-2 border-0 border-b  outline-none w-full text-primary  ${
+                  className={`text-xxs py-2 border-0 border-b  outline-none w-full text-primary appearance-none rounded-none  ${
                     touched.assignedEmail && values.assignedEmail === ""
                       ? "border-error text-error"
                       : "border-primary text-primary "
