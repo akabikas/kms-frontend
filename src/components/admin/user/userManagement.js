@@ -87,7 +87,11 @@ function UserManagement() {
         />
       )}
       <div className="page_content">
-        <h1 className="text-sm font-bold">User management</h1>
+        <div class="border-b border-gray-200 pb-5 sm:flex sm:items-center sm:justify-between">
+          <h3 class="text-sm font-semibold leading-6 text-gray-900">
+            User management
+          </h3>
+        </div>
         <div className="relative mt-10">
           <table className="w-full text-sm text-left rtl:text-right ">
             <thead className="text-xxs">
@@ -153,7 +157,7 @@ function UserManagement() {
         <div className="button-wrapper flex justify-end mt-10">
           <Link
             to="/user-management/add-user"
-            className="border border-primary outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
+            className="border border-primary rounded-md outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
           >
             Add new
           </Link>

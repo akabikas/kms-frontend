@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../../assets/img/logo.svg";
@@ -6,12 +6,14 @@ import SessionStorageService from "../../../services/sessionStorage";
 import logoutUser from "../../../libs/auth/logoutUser";
 import RedirectToLogin from "../../../utils/redirectToLogin";
 import UserIcon from "../../../assets/img/user.png";
+import getAllNotifications from "../../../libs/notifications/getNotifications";
 
 function SideMenuBar({ links }) {
   const currentPath = window.location.pathname;
 
   const user = SessionStorageService.getItem("user");
   const token = SessionStorageService.getItem("token");
+  const [notifications, setNotifications] = useState("");
 
   const handleLogout = async () => {
     const { success, error } = await logoutUser(token);
@@ -22,6 +24,27 @@ function SideMenuBar({ links }) {
       return;
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { success, data, error } = await getAllNotifications(
+          token,
+          user._id,
+          "Unread"
+        );
+        if (success) {
+          setNotifications(data.notifications);
+        } else {
+          console.error("Error fetching notifications:", error);
+        }
+      } catch (error) {
+        console.error("Error fetching notifications:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <header className="col-span-5 min-h-screen fixed left-0 top-0 bottom-0 shadow-xl  px-10 py-6">
@@ -61,20 +84,49 @@ function SideMenuBar({ links }) {
           <h2 className="text-xxxs text-gray-500 mb-4  px-4">Your items</h2>
           <ul>
             <li
+              className={`mb-3  px-4 py-2 cursor-pointer ${
+                currentPath.startsWith("/notifications")
+                  ? "font-bold bg-gray-100 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to="/notifications"
+                className="block transition-all duration-100 hover:translate-x-1 bg-transparent"
+              >
+                <i
+                  className={`fa-light fa-bells pr-4 bg-transparent ${
+                    currentPath.startsWith("/notifications")
+                      ? "font-regular"
+                      : ""
+                  }`}
+                ></i>
+                Notifications
+                {notifications.length > 0 ? (
+                  <span className="bg-rose-500 px-[9px] py-1 rounded-full text-white text-[12px] ml-2">
+                    {notifications.length}
+                  </span>
+                ) : (
+                  ""
+                )}
+              </Link>
+            </li>
+            <li
               className={`mb-3  px-4 py-2 cursor-pointer  ${
                 currentPath.startsWith("/edit-account")
                   ? "font-bold bg-gray-100 rounded-md"
                   : ""
               }`}
             >
-              {" "}
               <Link
                 to="/edit-account"
                 className="block transition-all duration-100 hover:translate-x-1 bg-transparent"
               >
                 <i
                   className={`fa-light fa-gear mr-4 bg-transparent ${
-                    currentPath.startsWith("/edit-account") ? "font-regular" : ""
+                    currentPath.startsWith("/edit-account")
+                      ? "font-regular"
+                      : ""
                   }`}
                 ></i>
                 Edit account

@@ -174,7 +174,7 @@ function EditPersonalInfo() {
           <div>
             <button
               type="button"
-              className="px-10 py-2 rounded-sm bg-primary text-white border-primary border hover:bg-transparent hover:text-primary"
+              className="px-10 py-2 rounded-md bg-primary text-white border-primary border hover:bg-transparent hover:text-primary"
               onClick={triggerFileClick}
             >
               Change avatar
@@ -226,7 +226,7 @@ function EditPersonalInfo() {
         </fieldset>
         <button
           onClick={handleSavePersonalInfo}
-          className="mt-10 px-10 py-2 rounded-sm bg-primary text-white border-primary border hover:bg-transparent hover:text-primary"
+          className="mt-10 px-10 py-2 rounded-md bg-primary text-white border-primary border hover:bg-transparent hover:text-primary"
         >
           Save
         </button>

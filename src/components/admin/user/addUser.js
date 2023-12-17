@@ -363,7 +363,7 @@ function AddUser() {
           <div className="button-wrapper flex justify-start mt-12">
             <a
               onClick={handleAddUser}
-              className="cursor-pointer border border-primary outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
+              className="cursor-pointer border border-primary rounded-md outline-none text-primary px-10 py-2 hover:bg-tertiary hover:border-tertiary hover:text-secondary"
             >
               Add new
             </a>

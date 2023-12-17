@@ -149,7 +149,7 @@ function ChangePass() {
           </fieldset>
           <button
             onClick={handlePasswordChange}
-            className="mt-10 px-10 py-2 rounded-sm bg-primary text-white border-primary border hover:bg-transparent hover:text-primary"
+            className="mt-10 px-10 py-2 rounded-md bg-primary text-white border-primary border hover:bg-transparent hover:text-primary"
           >
             Save
           </button>

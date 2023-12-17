@@ -10,6 +10,7 @@ import AllProject from "./components/shared/project/allProject";
 import AddProject from "./components/shared/project/addProject";
 import SingleProject from "./components/shared/project/singleProject";
 import EditAccount from "./components/shared/edit-account/editAccount";
+import Notifications from "./components/shared/notifications/notifications";
 
 function App() {
   return (
@@ -84,6 +85,14 @@ function App() {
           element={
             <GuestGuard>
               <EditAccount />
+            </GuestGuard>
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <GuestGuard>
+              <Notifications />
             </GuestGuard>
           }
         />

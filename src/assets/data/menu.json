@@ -14,11 +14,6 @@
       "path": "/projects",
       "name": "Projects",
       "icon": "fa-folder-open"
-    },
-    {
-      "path": "/notifications",
-      "name": "Notifications",
-      "icon": "fa-bells"
     }
   ],
   "employee": [
@@ -31,11 +26,6 @@
       "path": "/projects",
       "name": "Projects",
       "icon": "fa-folder-open"
-    },
-    {
-      "path": "/notifications",
-      "name": "Notifications",
-      "icon": "fa-bells"
     }
   ],
   "client": [
@@ -48,11 +38,6 @@
       "path": "/projects",
       "name": "Projects",
       "icon": "fa-folder-open"
-    },
-    {
-      "path": "/notifications",
-      "name": "Notifications",
-      "icon": "fa-bells"
     }
   ]
 }
