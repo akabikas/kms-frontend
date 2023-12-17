@@ -134,7 +134,7 @@ function AdminDashboard() {
               </div>
               <div className="flex-shrink-0 pr-2">
                 <Link
-                  to={`/projects${project._id}`}
+                  to={`/projects/${project._id}`}
                   className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-transparent bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <i className="fa-regular fa-arrow-up-right-from-square"></i>

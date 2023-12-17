@@ -11,6 +11,7 @@ export default function Notifications() {
   const user = SessionStorageService.getItem("user");
   const token = SessionStorageService.getItem("token");
   const [notifications, setNotifications] = useState("");
+  const [notificationStatus, setNotificationStatus] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +32,7 @@ export default function Notifications() {
 
     fetchData();
     return () => {};
-  }, [notifications]);
+  }, [notificationStatus]);
 
   function getTimeDifferenceString(notificationTime) {
     const currentTime = new Date();
@@ -64,13 +65,13 @@ export default function Notifications() {
         status
       );
       if (success) {
-        setNotifications(data.notifications);
         const { success, data, error } = await getAllNotifications(
           token,
           user._id
         );
         if (success) {
           setNotifications(data.notifications);
+          setNotificationStatus(true)
         } else {
           console.error("Error fetching notifications:", error);
         }

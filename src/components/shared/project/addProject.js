@@ -7,6 +7,7 @@ import getAllUsers from "../../../libs/auth/getAllUsers";
 import SessionStorageService from "../../../services/sessionStorage";
 import addProject from "../../../libs/project/addProject";
 import NotificationModal from "../modal/notificationModal";
+import getAllConversations from "../../../libs/conversations/getConversations";
 
 const initFormValues = {
   title: "",
@@ -14,6 +15,7 @@ const initFormValues = {
   status: "",
   assignedTo: "",
   documents: [],
+  assignedEmail: "",
 };
 
 const initFormState = {
@@ -22,6 +24,7 @@ const initFormState = {
 
 function AddProject() {
   const [users, setUsers] = useState([]);
+  const [conversations, setConversations] = useState([]);
   const token = SessionStorageService.getItem("token");
   const user = SessionStorageService.getItem("user");
 
@@ -65,7 +68,22 @@ function AddProject() {
       }
     };
 
+    const fetchConversations = async () => {
+      try {
+        const conversationData = await getAllConversations(token, user);
+
+        if (conversationData.success) {
+          setConversations(conversationData.data.conversations);
+        } else {
+          console.error(conversationData.error);
+        }
+      } catch (error) {
+        console.error("Error during user retrieval:", error.message);
+      }
+    };
+
     fetchData();
+    fetchConversations();
   }, []);
 
   const options = users.map((user) => ({
@@ -242,6 +260,33 @@ function AddProject() {
                   <option value="archived">Archived</option>
                   <option value="done">Done</option>
                 </select>
+              </fieldset>
+              <fieldset className="flex gap-x-10 w-full mt-5">
+                <select
+                  name="assignedEmail"
+                  className={`text-xxs py-2 border-0 border-b  outline-none w-full text-primary  ${
+                    touched.assignedEmail && values.assignedEmail === ""
+                      ? "border-error text-error"
+                      : "border-primary text-primary "
+                  }`}
+                  value={values.assignedEmail}
+                  onChange={handleFormChange}
+                  onBlur={handleFormBlur}
+                >
+                  <option
+                    value=""
+                    className={
+                      touched.assignedEmail && values.assignedEmail === ""
+                        ? " text-error"
+                        : " text-primary "
+                    }
+                  >
+                    Assign an email conversation
+                  </option>
+                  {conversations && conversations.map((conversation, index) => (
+                    <option key={index} value={conversation._id}>{conversation.conversationName}</option>
+                  ))}
+                </select>
                 <Select
                   value={assignedTo}
                   onChange={handleassignedTo}
@@ -353,7 +398,9 @@ function AddProject() {
             </div>
           </div>
         </section>
-      ): window.location.href="/projects"}
+      ) : (
+        (window.location.href = "/projects")
+      )}
     </Layout>
   );
 }

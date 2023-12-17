@@ -8,6 +8,7 @@ const addProject = async (data, token) => {
     formData.append("description", data.description);
     formData.append("status", data.status);
     formData.append("name", data.title);
+    formData.append("emailConversation", data.assignedEmail)
 
     data.documents.forEach((file) => {
       formData.append("documents", file.fileObject, file.originalname);
