@@ -61,6 +61,7 @@ function App() {
           path="/projects"
           element={
             <GuestGuard>
+              {" "}
               <AllProject />
             </GuestGuard>
           }
@@ -69,7 +70,7 @@ function App() {
           path="/projects/:projectId"
           element={
             <GuestGuard>
-              <SingleProject />
+              <SingleProject />{" "}
             </GuestGuard>
           }
         />
@@ -81,14 +82,6 @@ function App() {
             </GuestGuard>
           }
         />
-        {/* <Route
-          path="/projects/edit-project/:projectId"
-          element={
-            <GuestGuard>
-              <EditProject />
-            </GuestGuard>
-          }
-        /> */}
         <Route
           path="/edit-account"
           element={

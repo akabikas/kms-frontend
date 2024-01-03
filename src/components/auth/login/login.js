@@ -76,7 +76,7 @@ function Login() {
     <section className="h-screen flex justify-center items-center">
       <div className="container px-6 md:mx-auto md:px-44 lg:px-60 xl:px-0 xl:w-[25%]">
         <div className="header flex flex-col items-center">
-          <h1 className="text-base font-bold mb-2">Sign up</h1>
+          <h1 className="text-base font-bold mb-2">Sign in</h1>
           <p className="text-xxs">
             Please provide your credentials to access your account.
           </p>

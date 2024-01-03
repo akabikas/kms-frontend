@@ -1,6 +1,5 @@
 const getEmailsById = async (token, id) => {
   try {
-    console.log(id)
     const response = await fetch(`http://localhost:3000/api/emails?id=${id}`, {
       method: "GET",
       headers: {
